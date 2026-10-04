@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelKids Arcade - Mini Juegos</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        arcadeDark: '#0f172a',
+                        arcadeCard: '#1e293b',
+                        arcadeAccent: '#8b5cf6',
+                        arcadePink: '#ec4899',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-arcadeDark text-gray-100 min-h-screen font-sans flex flex-col justify-between">
+
+    <!-- Header / Navbar -->
+    <header class="bg-arcadeCard border-b border-gray-800 shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <span class="text-3xl">🕹️</span>
+                <h1 class="text-2xl font-black tracking-wider bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+                    PixelKids Arcade
+                </h1>
+            </div>
+            <p class="text-xs sm:text-sm text-gray-400 bg-gray-800 px-3 py-1.5 rounded-full border border-gray-700">
+                ✨ Creado por un joven dev
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8 flex-grow w-full">
+        
+        <!-- Hero Section -->
+        <section class="text-center my-8 md:my-12">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
+                Minijuegos hechos con <span class="text-pink-500">pasión</span> y código
+            </h2>
+            <p class="text-gray-400 max-w-2xl mx-auto text-base md:text-lg">
+                Explora juegos creados desde cero con JavaScript, Python y Scratch. ¡Diviértete un rato y apoya el talento independiente!
+            </p>
+            
+            <!-- Category Filters -->
+            <div class="flex justify-center gap-2 mt-6 flex-wrap">
+                <button class="px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 transition">Todos</button>
+                <button class="px-4 py-2 bg-gray-800 text-gray-300 font-semibold rounded-lg border border-gray-700 hover:bg-gray-700 transition">JavaScript</button>
+                <button class="px-4 py-2 bg-gray-800 text-gray-300 font-semibold rounded-lg border border-gray-700 hover:bg-gray-700 transition">Scratch / Python</button>
+            </div>
+        </section>
+
+        <!-- Games Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Game Card 1 -->
+            <div class="bg-arcadeCard rounded-2xl overflow-hidden border border-gray-800 shadow-xl hover:border-purple-500 transition duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="h-48 bg-gradient-to-br from-indigo-900 to-purple-900 flex items-center justify-center relative">
+                        <span class="text-6xl">🚀</span>
+                        <span class="absolute top-3 right-3 bg-purple-600/80 backdrop-blur text-xs font-bold px-2.5 py-1 rounded-md">JavaScript</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-white">Aventura Espacial Retro</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Esquiva asteroides y consigue la puntuación más alta en este juego clásico de disparos espaciales hecho con JS puro.
+                        </p>
+                    </div>
+                </div>
+                <div class="p-6 pt-0">
+                    <button class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center space-x-2">
+                        <span>▶️</span>
+                        <span>Jugar Pantalla Completa</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Game Card 2 -->
+            <div class="bg-arcadeCard rounded-2xl overflow-hidden border border-gray-800 shadow-xl hover:border-pink-500 transition duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="h-48 bg-gradient-to-br from-pink-950 to-purple-950 flex items-center justify-center relative">
+                        <span class="text-6xl">🐱</span>
+                        <span class="absolute top-3 right-3 bg-pink-600/80 backdrop-blur text-xs font-bold px-2.5 py-1 rounded-md">Scratch Web</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-white">El Gato Saltador 3000</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Un divertido juego de plataformas adaptado a la web. Salta obstáculos imposibles creados por mi hijo en Scratch.
+                        </p>
+                    </div>
+                </div>
+                <div class="p-6 pt-0">
+                    <button class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center space-x-2">
+                        <span>▶️</span>
+                        <span>Jugar Pantalla Completa</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Game Card 3 -->
+            <div class="bg-arcadeCard rounded-2xl overflow-hidden border border-gray-800 shadow-xl hover:border-purple-500 transition duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="h-48 bg-gradient-to-br from-blue-950 to-indigo-950 flex items-center justify-center relative">
+                        <span class="text-6xl">🧩</span>
+                        <span class="absolute top-3 right-3 bg-blue-600/80 backdrop-blur text-xs font-bold px-2.5 py-1 rounded-md">JS & Canvas</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-white">Laberinto Imposible</h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            ¿Podrás salir del laberinto aleatorio antes de que se acabe el tiempo? Creado usando HTML5 Canvas y JS.
+                        </p>
+                    </div>
+                </div>
+                <div class="p-6 pt-0">
+                    <button class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center space-x-2">
+                        <span>▶️</span>
+                        <span>Jugar Pantalla Completa</span>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- About Project Section -->
+        <section class="mt-16 bg-arcadeCard border border-gray-800 rounded-2xl p-8 text-center shadow-lg">
+            <h3 class="text-2xl font-bold mb-3 text-white">Detrás del Código 💡</h3>
+            <p class="text-gray-400 max-w-3xl mx-auto text-sm md:text-base leading-relaxed">
+                Este sitio web es un proyecto familiar donde un joven entusiasta de la programación plasma toda su creatividad construyendo juegos. Compartimos la pasión por crear mundos virtuales con herramientas modernas como HTML, CSS, JavaScript, Scratch y Python.
+            </p>
+            <div class="mt-6 flex justify-center items-center space-x-4 text-sm text-pink-400 font-semibold">
+                <span>🚀 Síguenos en TikTok / Shorts</span>
+                <span>•</span>
+                <span>¡Mira cómo se programan estos juegos en vivo!</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-arcadeCard border-t border-gray-800 text-center py-6 mt-12 text-sm text-gray-500">
+        <p>© 2026 PixelKids Arcade. Todos los derechos reservados. Hecho con 💖 y código.</p>
+    </footer>
+
+</body>
+</html>
