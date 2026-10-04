@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creador de Novelas Gráficas por Bloques</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Creador de Novelas Gráficas</h1>
+        <p><strong>Arrastra el fondo</strong> para moverte | <strong>Clic derecho</strong> en un bloque para conectar.</p>
+        
+        <div class="header-actions">
+            <button id="btn-save" class="btn-secondary-action">💾 Guardar</button>
+            <label for="file-input-load" class="btn-secondary-action file-label">📂 Cargar</label>
+            <input type="file" id="file-input-load" accept=".json" style="display: none;">
+            <button id="btn-start" class="btn-primary">▶ Iniciar Novela Gráfica</button>
+        </div>
+    </header>
+
+    <div id="main-layout">
+        <aside id="sidebar">
+            <h3>Personajes</h3>
+            <div class="sidebar-section">
+                <input type="text" id="char-name-input" placeholder="Nombre (ej: Ana)">
+                <input type="text" id="char-emoji-input" placeholder="Emoji (ej: 👩‍🦰)" maxlength="4">
+                <button id="btn-add-char" class="btn-secondary">+ Crear Personaje</button>
+            </div>
+            <div id="character-list"></div>
+        </aside>
+
+        <div id="workspace">
+            <div id="canvas-container">
+                <svg class="connections" id="svg-canvas"></svg>
+
+                <div class="block" id="block-1" style="top: 200px; left: 200px;" data-id="1" data-type="normal">
+                    <div class="block-header">
+                        <span>Bloque 1 (Inicio)</span>
+                    </div>
+                    <div class="block-body">
+                        <label>Tipo de bloque:</label>
+                        <select class="block-type-select">
+                            <option value="normal">Narrador / Normal</option>
+                            <option value="character">Bloque de Personaje</option>
+                        </select>
+
+                        <div class="character-selector-container" style="display:none;">
+                            <label>Seleccionar Personaje:</label>
+                            <select class="char-select">
+                                <option value="">-- Elige personaje --</option>
+                            </select>
+                        </div>
+
+                        <label>Diálogo del personaje:</label>
+                        <textarea class="dialogo-input" placeholder="Escribe lo que pasa o dice...">¡Hola! Bienvenido a mi historia.</textarea>
+                        
+                        <label class="opcion-label" style="display:none;">Texto de la opción:</label>
+                        <input type="text" class="opcion-input" style="display:none;" placeholder="Ej: Ir al bosque...">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="visualizer-modal" class="modal hidden">
+        <div class="modal-content">
+            <button id="btn-close-modal" class="btn-close">&times;</button>
+            <div id="vn-screen">
+                <div id="vn-character-avatar" class="hidden">
+                    <span id="vn-avatar-emoji"></span>
+                    <span id="vn-avatar-name"></span>
+                </div>
+                <div id="vn-dialogue-box">
+                    <p id="vn-text">Texto de la novela aquí...</p>
+                </div>
+                <div id="vn-choices-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
