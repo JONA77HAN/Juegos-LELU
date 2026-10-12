@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creador y Jugador de Cuestionarios</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Pantalla de Inicio -->
+        <div id="home-screen" class="screen active">
+            <h1>🧠 Mis Cuestionarios</h1>
+            <div class="nav-tabs">
+                <button type="button" class="tab-btn active" onclick="switchTab('my')">Mis Cuestionarios</button>
+                <button type="button" class="tab-btn" onclick="switchTab('public')">🌐 Cuestionarios Públicos</button>
+            </div>
+            
+            <div id="my-quizzes-section">
+                <div class="menu-actions" style="margin-top: 15px;">
+                    <button type="button" id="btn-go-create" class="btn primary">Crear Nuevo Cuestionario</button>
+                </div>
+                <div id="quiz-list" class="quiz-list"></div>
+            </div>
+
+            <div id="public-quizzes-section" class="hidden">
+                <h3 style="margin: 15px 0 10px 0; color: var(--primary-color);">Cuestionarios Publicados por la Comunidad</h3>
+                <div id="public-quiz-list" class="quiz-list"></div>
+            </div>
+        </div>
+
+        <!-- Pantalla del Editor -->
+        <div id="editor-screen" class="screen">
+            <h2 id="editor-title">✏️ Crear Cuestionario</h2>
+            <div class="form-group">
+                <label for="quiz-title">Título del Cuestionario:</label>
+                <input type="text" id="quiz-title" placeholder="Ej. Historia, Ciencia, etc.">
+            </div>
+
+            <div id="questions-container"></div>
+
+            <button type="button" id="btn-add-question" class="btn secondary">+ Agregar Pregunta</button>
+            
+            <div class="editor-actions">
+                <button type="button" id="btn-save-quiz" class="btn primary">Guardar Cuestionario</button>
+                <button type="button" id="btn-cancel-editor" class="btn danger">Cancelar</button>
+            </div>
+        </div>
+
+        <!-- Pantalla de Juego -->
+        <div id="play-screen" class="screen">
+            <h2 id="play-quiz-title">Título del Cuestionario</h2>
+            <div id="quiz-card">
+                <div id="question-progress">Pregunta 1 de 5</div>
+                <div id="question-text" class="question-text">¿Pregunta de ejemplo?</div>
+                <div id="options-container" class="options-container"></div>
+            </div>
+            <div id="results-container" class="results-container hidden">
+                <h3>¡Cuestionario Completado! 🎉</h3>
+                <p id="score-text">Tu puntaje: 0 / 0</p>
+                <button type="button" id="btn-back-home" class="btn primary">Volver al Inicio</button>
+            </div>
+            <button type="button" id="btn-quit-play" class="btn danger" style="margin-top: 20px;">Salir al Inicio</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
