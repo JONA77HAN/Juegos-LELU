@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Duelo Elemental 1vs1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="ui-container">
+        <div id="selection-screen">
+            <h1>DUELO ELEMENTAL</h1>
+            <p>Jugador 1: Elige tu elemento</p>
+            <div class="cards">
+    <button onclick="selectCharacter('agua')" style="background: #3498db;">Agua 💧</button>
+    <button onclick="selectCharacter('fuego')" style="background: #e67e22;">Fuego 🔥</button>
+    <button onclick="selectCharacter('planta')" style="background: #27ae60;">Planta ☘️</button>
+    <button onclick="selectCharacter('viento')" style="background: #95a5a6;">Viento 🌬️</button>
+    <button onclick="selectCharacter('veneno')" style="background: #9b59b6;">Veneno 🟣</button>
+    <button onclick="selectCharacter('oscuridad')" style="background: #555;">Oscuridad 🌑</button>
+    <button onclick="selectCharacter('hada')" style="background: #ff9ff3;">Hada 🌺</button>
+    <button onclick="selectCharacter('hielo')" style="background: #00d2ff;">Hielo ❄️</button>
+            </div>
+            <div class="controls-info">
+                <p><strong>P1:</strong> WASD + [1, 2, 3]</p>
+                <p><strong>P2:</strong> Flechas + [J, K, L]</p>
+            </div>
+        </div>
+
+        <div id="game-ui" style="display: none;">
+            <div class="hud">
+                <div class="stat-box">P1 HP: <span id="p1-hp">100</span></div>
+                <div class="stat-box">P2 HP: <span id="p2-hp">100</span></div>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+    <script src="script.js"></script>
+</body>
+</html>
