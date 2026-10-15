@@ -23,11 +23,12 @@ const charData = {
     hielo: { emoji: '❄️', name: 'Hielo', type: 'Hielo: congelación y barreras', s2Name: 'Cubo Helado', s2Desc: 'Congela al rival por 3s', s2Emoji: '🧊', s3Name: 'Domo Protector', s3Desc: 'Barrera impenetrable de hielo', s3Emoji: '🟦', desc: 'Especialista defensivo. Puede detener proyectiles por completo con su escudo de hielo.' },
     araña: { emoji: '🕷️', name: 'Araña', type: 'Araña: agilidad y redes veloces', s2Name: 'Red Ralentizadora', s2Desc: 'Reduce la velocidad del rival', s2Emoji: '🕸️', s3Name: 'Turbo Arácnido', s3Desc: 'Velocidad extrema temporal', s3Emoji: '⚡', desc: 'Destaca por su bajísima recarga de ataques y alta movilidad en pista.' },
     electrico: { emoji: '⚡', name: 'Eléctrico', type: 'Eléctrico: velocidad y rayos láser', s2Name: 'Rayo Láser', s2Desc: 'Proyectil ultrarrápido y potente', s2Emoji: '💡', s3Name: 'Campo Eléctrico', s3Desc: 'Dispara 4 orbes a las esquinas', s3Emoji: '🟡', desc: 'El rey de la velocidad de disparo. Sus rayos cruzan el mapa en un instante.' },
-    alma: { emoji: '👻', name: 'Alma', type: 'Alma: posesión y espíritus guía', s2Name: 'Orbe de Posesión', s2Desc: 'Invierte los controles 5s', s2Emoji: '💙', s3Name: 'Alma Perseguidora', s3Desc: 'Espíritu rastreador infinito', s3Emoji: '👻', desc: 'Incomoda al rival invirtiendo sus controles y persiguiéndole sin descanso.' },
+    alma: { emoji: '👻', name: 'Alma', type: 'Alma: posesión y espíritus guía', s2Name: 'Orbe de Posesión', s2Desc: 'Invierte los controles 5s', s2Emoji: '💙', s3Name: 'Alma Perseguidora', s3Desc: 'Espíritu rastreador infinito', s3Emoji: '👻', desc: 'Incomoda al rival invirtiendo sus controles y persiguéndole sin descanso.' },
     dragon: { emoji: '🐲', name: 'Dragón', type: 'Dragón: furia aérea y destrucción', s2Name: 'Vuelo Ígneo', s2Desc: 'Vuela invulnerable dejando fuego', s2Emoji: '🔺', s3Name: 'Aliento Destructor', s3Desc: 'Elimina proyectiles enemigos', s3Emoji: '🔥', desc: 'Poder puro de escamas. Capaz de anular ataques contrarios en pleno vuelo.' },
     portal: { emoji: '🌀', name: 'Portal', type: 'Portal: distorsión espacial', s2Name: 'Salto de Portal', s2Desc: 'Crea portales de teletransporte', s2Emoji: '🌀', s3Name: 'Escudo Espejo', s3Desc: 'Absorbe ataques y los devuelve en pan', s3Emoji: '🍞', desc: 'Maestro de la física cuántica, capaz de desviar ataques convirtiéndolos en pan.' },
     arena: { emoji: '⌛', name: 'Arena', type: 'Arena: lentitud y caos temporal', s2Name: 'Galleta Espejo', s2Desc: 'Desincroniza y acelera al rival', s2Emoji: '🍪', s3Name: 'Waffles Rebotadores', s3Desc: '3 waffles rebotan en paredes y jugadores', s3Emoji: '🧇', desc: 'Introduce lentitud acumulativa de hasta 1 minuto y desincroniza el movimiento rival impulsándolo velozmente.' },
-    musical: { emoji: '🎶', name: 'Musical', type: 'Musical: ritmo, acumulación y curación', s2Name: 'Nota Creciente', s2Desc: 'Daño base 10 HP, se duplica cada golpe consecutivo', s2Emoji: '🎵', s3Name: 'Disparo Resonante', s3Desc: 'Onda gigante: daña al rival o cura 50 HP', s3Emoji: '🧿', desc: 'Músico táctico. Su nota (🎵) acumula daño x2 por impacto consecutivo. Su amuleto (🧿) genera una gran onda expansiva al chocar.' }
+    musical: { emoji: '🎶', name: 'Musical', type: 'Musical: ritmo, acumulación y curación', s2Name: 'Nota Creciente', s2Desc: 'Daño base 10 HP, se duplica cada golpe consecutivo', s2Emoji: '🎵', s3Name: 'Disparo Resonante', s3Desc: 'Onda gigante: daña al rival o cura 50 HP', s3Emoji: '🧿', desc: 'Músico táctico. Su nota (🎵) acumula daño x2 por impacto consecutivo. Su amuleto (🧿) genera una gran onda expansiva al chocar.' },
+    espacial: { emoji: '🔮', name: 'Espacial', type: 'Espacial: gravitación y estelas cósmicas', s2Name: 'Línea Nebular', s2Desc: 'Deja una línea morada dañina hasta chocar', s2Emoji: '🍇', s3Name: 'Atracción Gravitacional', s3Desc: 'Dirige TODOS los proyectiles del campo al rival', s3Emoji: '🔮', desc: 'Dominante del espacio-tiempo. Puede llenar el escenario con líneas estelares dañinas y redirigir proyectiles masivos al rival.' }
 };
 
 function toggleLongMode() {
@@ -111,6 +112,7 @@ const DRAGON_CD   = { s1: 300, s2: 7000, s3: 4000 };
 const PORTAL_CD   = { s1: 400, s2: 4000, s3: 6000 };
 const ARENA_CD    = { s1: 350, s2: 12000, s3: 4500 };
 const MUSICAL_CD  = { s1: 400, s2: 1800, s3: 6000 };
+const ESPACIAL_CD = { s1: 400, s2: 3000, s3: 8000 };
 
 class Entity {
     constructor(x, y, color, type, isP1) {
@@ -231,7 +233,7 @@ function getColor(type) {
         viento: '#95a5a6', veneno: '#9b59b6', oscuridad: '#485460', 
         hada: '#ff7675', hielo: '#00d2ff', araña: '#2f3542', 
         electrico: '#f1c40f', alma: '#a4b0be', dragon: '#c0392b', portal: '#1abc9c',
-        arena: '#e58e26', musical: '#9936C7'
+        arena: '#e58e26', musical: '#9936C7', espacial: '#6c5ce7'
     };
     return colors[type];
 }
@@ -263,6 +265,7 @@ function tryAttack(char, skillSlot) {
     if (char.type === 'portal') cds = PORTAL_CD;
     if (char.type === 'arena') cds = ARENA_CD;
     if (char.type === 'musical') cds = MUSICAL_CD;
+    if (char.type === 'espacial') cds = ESPACIAL_CD;
 
     if (now - char.lastAttack[skillSlot] >= cds[skillSlot]) {
         executeAttack(char, skillSlot);
@@ -276,7 +279,26 @@ function executeAttack(char, skillSlot) {
     const spawnX = char.x + (dir === 1 ? 65 : -45);
     const now = Date.now();
 
-    if (char.type === 'musical') {
+    if (char.type === 'espacial') {
+        if (skillSlot === 's1') {
+            projectiles.push({ x: spawnX, y: char.y, vx: 14 * dir, vy: 0, img: '◽', dmg: 12, life: 100, owner: char });
+        }
+        if (skillSlot === 's2') {
+            projectiles.push({ x: spawnX, y: char.y, vx: 12 * dir, vy: 0, img: '🍇', dmg: 18, life: 120, owner: char, isGrapeTrail: true, startX: spawnX, startY: char.y + 20 });
+        }
+        if (skillSlot === 's3') {
+            projectiles.forEach(p => {
+                if (!p.isSonicWave && !p.isPortal) {
+                    let dx = enemy.x + 25 - (p.x + 15);
+                    let dy = enemy.y + 25 - (p.y + 15);
+                    let dist = Math.hypot(dx, dy) || 1;
+                    let speed = Math.hypot(p.vx, p.vy) || 12;
+                    p.vx = (dx / dist) * speed;
+                    p.vy = (dy / dist) * speed;
+                }
+            });
+        }
+    } else if (char.type === 'musical') {
         if (skillSlot === 's1') {
             projectiles.push({ x: spawnX, y: char.y, vx: 15 * dir, vy: 0, img: '🔊', dmg: 12, life: 100, owner: char });
         }
@@ -372,7 +394,7 @@ function drawCooldowns(char, x, y) {
         viento: ['🌫️', '🌪️', '⬛'], veneno: ['🟣', '💜', '🟪'], oscuridad: ['🌑', '👥', '🍳'], 
         hada: ['🌺', '🍄', '🦄'], hielo: ['❄️', '🧊', '🟦'], araña: ['🕸️', '🕸️', '⚡'], 
         electrico: ['🧽', '💡', '🟡'], alma: ['🔹', '💙', '👻'], dragon: ['🔥', '🔺', '🔥'], portal: ['🎐', '🌀', '🍞'],
-        arena: ['💳', '🍪', '🧇'], musical: ['🔊', '🎵', '🧿']
+        arena: ['💳', '🍪', '🧇'], musical: ['🔊', '🎵', '🧿'], espacial: ['◽', '🍇', '🔮']
     };
     let cds = DEFAULT_CD;
     if (char.type === 'araña') cds = SPIDER_CD;
@@ -382,6 +404,7 @@ function drawCooldowns(char, x, y) {
     if (char.type === 'portal') cds = PORTAL_CD;
     if (char.type === 'arena') cds = ARENA_CD;
     if (char.type === 'musical') cds = MUSICAL_CD;
+    if (char.type === 'espacial') cds = ESPACIAL_CD;
     
     const set = icons[char.type];
     [0, 1, 2].forEach(i => {
@@ -487,6 +510,22 @@ function loop() {
             continue;
         }
 
+        // --- MANEJO DE LA LÍNEA MORADA DAÑINA DE ESPACIAL (🍇) ---
+        if (p.isGrapeTrail) {
+            ctx.beginPath();
+            ctx.moveTo(p.startX, p.startY);
+            ctx.lineTo(p.x + 15, p.y + 20);
+            ctx.strokeStyle = "rgba(155, 89, 182, 0.85)";
+            ctx.lineWidth = 8;
+            ctx.stroke();
+
+            // Daño directo instantáneo al tocar la línea morada
+            let enemyDistToLine = Math.hypot((target.x + 25) - (p.x + 15), (target.y + 25) - (p.y + 20));
+            if (enemyDistToLine < 35) {
+                target.hp -= 1; // Daño constante mientras la cruce o toque
+            }
+        }
+
         if (p.isPortal) {
             [p1, p2].forEach(player => {
                 if (Math.hypot(player.x - p.x, player.y - p.y) < 30 && now - player.lastTP > 500) {
@@ -520,12 +559,10 @@ function loop() {
             } 
         }
 
-        // Rebote de los waffles en paredes
         if (p.bouncer) {
             if (p.x <= 0 || p.x >= 950) { p.vx *= -1; p.bouncesLeft--; }
             if (p.y <= 0 || p.y >= 450) { p.vy *= -1; p.bouncesLeft--; }
 
-            // Rebote de waffles al tocar a CUALQUIER jugador (p1 o p2)
             [p1, p2].forEach(pl => {
                 if (p.lastBouncerHit !== pl && Math.hypot((pl.x + 25) - (p.x + 15), (pl.y + 25) - (p.y + 15)) < 35) {
                     p.vx *= -1.2;
