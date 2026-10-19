@@ -1,0 +1,44 @@
+/* --- Animación de la Marquesina Arcade (Ticker) --- */
+@keyframes ticker-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-ticker {
+    display: inline-flex;
+    white-space: nowrap;
+    animation: ticker-scroll 25s linear infinite;
+}
+
+.animate-ticker:hover {
+    animation-play-state: paused;
+}
+
+/* --- Animación Flotante para Íconos de las Tarjetas --- */
+@keyframes float-icon {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-8px) rotate(2deg);
+    }
+}
+
+.animate-float {
+    animation: float-icon 3s ease-in-out infinite;
+    display: inline-block;
+}
+
+/* --- Efecto Resplandor en Hover de Tarjetas --- */
+.arcade-card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.arcade-card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px -5px rgba(236, 72, 153, 0.25), 0 8px 10px -6px rgba(139, 92, 246, 0.25);
+}

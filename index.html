@@ -20,14 +20,35 @@
             }
         }
     </script>
+    <!-- Archivo CSS Personalizado para Animaciones -->
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-arcadeDark text-gray-100 min-h-screen font-sans flex flex-col justify-between">
+<body class="bg-arcadeDark text-gray-100 min-h-screen font-sans flex flex-col justify-between overflow-x-hidden">
+
+    <!-- Marquesina Dinámica con Movimiento (Top Banner Ticker) -->
+    <div class="bg-gradient-to-r from-purple-700 via-pink-600 to-indigo-600 text-white text-xs sm:text-sm font-bold border-b border-pink-500/40 shadow-md py-2 overflow-hidden select-none">
+        <div class="animate-ticker cursor-pointer">
+            <div class="flex items-center space-x-8 px-4">
+                <span>🕹️ ¡BIENVENIDO A LELUPIXEL JUEGOS!</span>
+                <span>✨ CREADO CON PASIÓN POR LEÓN, LÚCIO Y JONY</span>
+                <span>🚀 NUEVOS MINIJUEGOS CADA SEMANA</span>
+                <span>🔥 ¡PRUEBA ELEMENTALS Y NOVELAS GRÁFICAS!</span>
+            </div>
+            <!-- Bloque duplicado para bucle continuo e infinito -->
+            <div class="flex items-center space-x-8 px-4">
+                <span>🕹️ ¡BIENVENIDO A LELUPIXEL JUEGOS!</span>
+                <span>✨ CREADO CON PASIÓN POR LEÓN, LÚCIO Y JONY</span>
+                <span>🚀 NUEVOS MINIJUEGOS CADA SEMANA</span>
+                <span>🔥 ¡PRUEBA ELEMENTALS Y NOVELAS GRÁFICAS!</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Header / Navbar -->
     <header class="bg-arcadeCard border-b border-gray-800 shadow-lg sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <span class="text-3xl">🕹️</span>
+                <span class="text-3xl animate-bounce">🕹️</span>
                 <h1 class="text-2xl font-black tracking-wider bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
                     LELUPIXEL JuegoS
                 </h1>
@@ -62,21 +83,21 @@
         <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
             <!-- Game Card 1 -->
-            <div class="bg-arcadeCard rounded-2xl overflow-hidden border border-gray-800 shadow-xl hover:border-purple-500 transition duration-300 flex flex-col justify-between">
+            <div class="bg-arcadeCard rounded-2xl overflow-hidden border border-gray-800 shadow-xl arcade-card-hover flex flex-col justify-between">
                 <div>
                     <div class="h-48 bg-gradient-to-br from-indigo-900 to-purple-900 flex items-center justify-center relative">
-                        <span class="text-6xl">🚀</span>
+                        <span class="text-6xl animate-float">🚀</span>
                         <span class="absolute top-3 right-3 bg-purple-600/80 backdrop-blur text-xs font-bold px-2.5 py-1 rounded-md">JavaScript</span>
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-2 text-white">Elementals</h3>
                         <p class="text-gray-400 text-sm mb-4">
-                            Pelea con tus compas en batallas locales con mas de 8 personajes disponibles para jugar
+                            Pelea con tus compas en batallas locales con mas de 16 personajes disponibles para jugar
                         </p>
                     </div>
                 </div>
                 <div class="p-6 pt-0">
-                      <a href="Juegos/Otro_juego_2/index.html" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center space-x-2">
+                    <a href="Juegos/Otro_juego_2/index.html" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center space-x-2">
                         <span>▶️</span>
                         <span>Jugar Pantalla Completa</span>
                     </a>
@@ -84,10 +105,10 @@
             </div>
 
             <!-- Game Card 2 -->
-            <div class="bg-arcadeCard rounded-2xl overflow-hidden border border-gray-800 shadow-xl hover:border-pink-500 transition duration-300 flex flex-col justify-between">
+            <div class="bg-arcadeCard rounded-2xl overflow-hidden border border-gray-800 shadow-xl arcade-card-hover flex flex-col justify-between">
                 <div>
                     <div class="h-48 bg-gradient-to-br from-pink-950 to-purple-950 flex items-center justify-center relative">
-                        <span class="text-6xl">🧠</span>
+                        <span class="text-6xl animate-float">🧠</span>
                         <span class="absolute top-3 right-3 bg-pink-600/80 backdrop-blur text-xs font-bold px-2.5 py-1 rounded-md">js cambas</span>
                     </div>
                     <div class="p-6">
@@ -98,7 +119,7 @@
                     </div>
                 </div>
                 <div class="p-6 pt-0">
-                      <a href="Juegos/Otro_juego/index.html" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center space-x-2">
+                    <a href="Juegos/Otro_juego/index.html" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center space-x-2">
                         <span>▶️</span>
                         <span>Jugar Pantalla Completa</span>
                     </a>
@@ -106,10 +127,10 @@
             </div>
 
             <!-- Game Card 3 -->
-            <div class="bg-arcadeCard rounded-2xl overflow-hidden border border-gray-800 shadow-xl hover:border-purple-500 transition duration-300 flex flex-col justify-between">
+            <div class="bg-arcadeCard rounded-2xl overflow-hidden border border-gray-800 shadow-xl arcade-card-hover flex flex-col justify-between">
                 <div>
                     <div class="h-48 bg-gradient-to-br from-blue-950 to-indigo-950 flex items-center justify-center relative">
-                        <span class="text-6xl">📖</span>
+                        <span class="text-6xl animate-float">📖</span>
                         <span class="absolute top-3 right-3 bg-blue-600/80 backdrop-blur text-xs font-bold px-2.5 py-1 rounded-md">JS & Canvas</span>
                     </div>
                     <div class="p-6">
