@@ -20,12 +20,12 @@
             }
         }
     </script>
-    <!-- Archivo CSS Personalizado para Animaciones -->
+    <!-- Archivo CSS Personalizado -->
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-arcadeDark text-gray-100 min-h-screen font-sans flex flex-col justify-between overflow-x-hidden">
+<body id="app-body" class="bg-arcadeDark text-gray-100 min-h-screen font-sans flex flex-col justify-between overflow-x-hidden">
 
-    <!-- Marquesina Dinámica con Movimiento (Top Banner Ticker) -->
+    <!-- Marquesina Dinámica con Movimiento -->
     <div class="bg-gradient-to-r from-purple-700 via-pink-600 to-indigo-600 text-white text-xs sm:text-sm font-bold border-b border-pink-500/40 shadow-md py-2 overflow-hidden select-none">
         <div class="animate-ticker cursor-pointer">
             <div class="flex items-center space-x-8 px-4">
@@ -34,7 +34,6 @@
                 <span>🚀 NUEVOS MINIJUEGOS CADA SEMANA</span>
                 <span>🔥 ¡PRUEBA ELEMENTALS Y NOVELAS GRÁFICAS!</span>
             </div>
-            <!-- Bloque duplicado para bucle continuo e infinito -->
             <div class="flex items-center space-x-8 px-4">
                 <span>🕹️ ¡BIENVENIDO A LELUPIXEL JUEGOS!</span>
                 <span>✨ CREADO CON PASIÓN POR LEÓN, LÚCIO Y JONY</span>
@@ -46,16 +45,30 @@
 
     <!-- Header / Navbar -->
     <header class="bg-arcadeCard border-b border-gray-800 shadow-lg sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap justify-between items-center gap-4">
             <div class="flex items-center space-x-3">
                 <span class="text-3xl animate-bounce">🕹️</span>
                 <h1 class="text-2xl font-black tracking-wider bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
                     LELUPIXEL JuegoS
                 </h1>
             </div>
-            <p class="text-xs sm:text-sm text-gray-400 bg-gray-800 px-3 py-1.5 rounded-full border border-gray-700">
-                ✨ Creado por León, Lúcio y Jony
-            </p>
+
+            <!-- Controles Interactivos del Header (Sonido + CRT + Info) -->
+            <div class="flex items-center space-x-3">
+                <button id="toggle-sound-btn" class="bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs px-3 py-1.5 rounded-full border border-gray-700 transition flex items-center space-x-1">
+                    <span id="sound-icon">🔊</span>
+                    <span id="sound-text">Sonido: ON</span>
+                </button>
+
+                <button id="toggle-crt-btn" class="bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs px-3 py-1.5 rounded-full border border-gray-700 transition flex items-center space-x-1">
+                    <span>📺</span>
+                    <span>Modo CRT</span>
+                </button>
+
+                <p class="hidden sm:block text-xs sm:text-sm text-gray-400 bg-gray-800 px-3 py-1.5 rounded-full border border-gray-700">
+                    ✨ Creado por León, Lúcio y Jony
+                </p>
+            </div>
         </div>
     </header>
 
@@ -63,35 +76,46 @@
     <main class="max-w-6xl mx-auto px-4 py-8 flex-grow w-full">
         
         <!-- Hero Section -->
-        <section class="text-center my-8 md:my-12">
+        <section class="text-center my-6 md:my-10">
             <h2 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
                 Minijuegos hechos con <span class="text-pink-500">pasión</span> y código
             </h2>
-            <p class="text-gray-400 max-w-2xl mx-auto text-base md:text-lg">
+            <p class="text-gray-400 max-w-2xl mx-auto text-base md:text-lg mb-6">
                 Explora juegos creados desde cero con JavaScript, Python y Scratch. ¡Diviértete un rato y apoya el talento independiente!
             </p>
+
+            <!-- Buscador Dinámico de Juegos -->
+            <div class="max-w-md mx-auto mb-6 relative">
+                <input type="text" id="game-search" placeholder="🔍 Buscar minijuego..." class="w-full bg-gray-800 border border-gray-700 text-white text-sm rounded-xl px-4 py-2.5 pl-10 focus:outline-none focus:border-pink-500 transition shadow-inner">
+                <span class="absolute left-3.5 top-2.5 text-gray-400 text-sm">🎮</span>
+            </div>
             
-            <!-- Category Filters -->
-            <div class="flex justify-center gap-2 mt-6 flex-wrap">
-                <button class="px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 transition">Todos</button>
-                <button class="px-4 py-2 bg-gray-800 text-gray-300 font-semibold rounded-lg border border-gray-700 hover:bg-gray-700 transition">JavaScript</button>
-                <button class="px-4 py-2 bg-gray-800 text-gray-300 font-semibold rounded-lg border border-gray-700 hover:bg-gray-700 transition">Scratch / Python</button>
+            <!-- Controles de Filtros por Categoría -->
+            <div id="filter-container" class="flex justify-center gap-2 mt-4 flex-wrap">
+                <button data-category="todos" class="filter-btn px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 transition">Todos</button>
+                <button data-category="javascript" class="filter-btn px-4 py-2 bg-gray-800 text-gray-300 font-semibold rounded-lg border border-gray-700 hover:bg-gray-700 transition">JavaScript</button>
+                <button data-category="scratch / python" class="filter-btn px-4 py-2 bg-gray-800 text-gray-300 font-semibold rounded-lg border border-gray-700 hover:bg-gray-700 transition">Scratch / Python</button>
+            </div>
+
+            <!-- Contador de Juegos -->
+            <div class="mt-4 text-xs text-gray-400 font-medium">
+                Mostrando <span id="game-counter" class="text-pink-400 font-bold">3</span> juegos disponibles
             </div>
         </section>
 
         <!-- Games Grid -->
-        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <section id="games-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
             <!-- Game Card 1 -->
-            <div class="bg-arcadeCard rounded-2xl overflow-hidden border border-gray-800 shadow-xl arcade-card-hover flex flex-col justify-between">
+            <div class="game-card card-fade bg-arcadeCard rounded-2xl overflow-hidden border border-gray-800 shadow-xl arcade-card-hover flex flex-col justify-between" data-category="javascript">
                 <div>
                     <div class="h-48 bg-gradient-to-br from-indigo-900 to-purple-900 flex items-center justify-center relative">
                         <span class="text-6xl animate-float">🚀</span>
                         <span class="absolute top-3 right-3 bg-purple-600/80 backdrop-blur text-xs font-bold px-2.5 py-1 rounded-md">JavaScript</span>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-white">Elementals</h3>
-                        <p class="text-gray-400 text-sm mb-4">
+                        <h3 class="game-title text-xl font-bold mb-2 text-white">Elementals</h3>
+                        <p class="game-description text-gray-400 text-sm mb-4">
                             Pelea con tus compas en batallas locales con mas de 16 personajes disponibles para jugar
                         </p>
                     </div>
@@ -105,15 +129,15 @@
             </div>
 
             <!-- Game Card 2 -->
-            <div class="bg-arcadeCard rounded-2xl overflow-hidden border border-gray-800 shadow-xl arcade-card-hover flex flex-col justify-between">
+            <div class="game-card card-fade bg-arcadeCard rounded-2xl overflow-hidden border border-gray-800 shadow-xl arcade-card-hover flex flex-col justify-between" data-category="javascript js cambas">
                 <div>
                     <div class="h-48 bg-gradient-to-br from-pink-950 to-purple-950 flex items-center justify-center relative">
                         <span class="text-6xl animate-float">🧠</span>
                         <span class="absolute top-3 right-3 bg-pink-600/80 backdrop-blur text-xs font-bold px-2.5 py-1 rounded-md">js cambas</span>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-white">Cuestionarios Maker</h3>
-                        <p class="text-gray-400 text-sm mb-4">
+                        <h3 class="game-title text-xl font-bold mb-2 text-white">Cuestionarios Maker</h3>
+                        <p class="game-description text-gray-400 text-sm mb-4">
                             Diviertete creando cuestionarios y publicalos para que todo mundo lo vea!!
                         </p>
                     </div>
@@ -127,15 +151,15 @@
             </div>
 
             <!-- Game Card 3 -->
-            <div class="bg-arcadeCard rounded-2xl overflow-hidden border border-gray-800 shadow-xl arcade-card-hover flex flex-col justify-between">
+            <div class="game-card card-fade bg-arcadeCard rounded-2xl overflow-hidden border border-gray-800 shadow-xl arcade-card-hover flex flex-col justify-between" data-category="javascript js & canvas">
                 <div>
                     <div class="h-48 bg-gradient-to-br from-blue-950 to-indigo-950 flex items-center justify-center relative">
                         <span class="text-6xl animate-float">📖</span>
                         <span class="absolute top-3 right-3 bg-blue-600/80 backdrop-blur text-xs font-bold px-2.5 py-1 rounded-md">JS & Canvas</span>
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-white">Novelas Gráficas</h3>
-                        <p class="text-gray-400 text-sm mb-4">
+                        <h3 class="game-title text-xl font-bold mb-2 text-white">Novelas Gráficas</h3>
+                        <p class="game-description text-gray-400 text-sm mb-4">
                             ¿Podrás crear el juego perfecto? Elige tu propio camino, toma decisiones de programación y mira cómo cobra vida tu propia historia virtual. Realizado en JS
                         </p>
                     </div>
@@ -150,13 +174,20 @@
 
         </section>
 
+        <!-- Mensaje de Búsqueda sin Resultados -->
+        <div id="no-results" class="hidden text-center py-12">
+            <span class="text-5xl mb-3 block">👾</span>
+            <p class="text-xl font-bold text-gray-300">No se encontraron juegos</p>
+            <p class="text-sm text-gray-500 mt-1">Prueba buscar con otro nombre o selecciona la categoría "Todos".</p>
+        </div>
+
         <!-- About Project Section -->
         <section class="mt-16 bg-arcadeCard border border-gray-800 rounded-2xl p-8 text-center shadow-lg">
             <h3 class="text-2xl font-bold mb-3 text-white">Detrás del Código 💡</h3>
             <p class="text-gray-400 max-w-3xl mx-auto text-sm md:text-base leading-relaxed">
                 "Este sitio web es un proyecto familiar donde un papá y sus dos hijos entusiastas de la programación plasman toda su creatividad construyendo juegos. Compartimos la pasión por crear mundos virtuales desde cero con herramientas modernas como HTML, CSS, JavaScript, Scratch y Python."
             </p>
-            <div class="mt-6 flex justify-center items-center space-x-4 text-sm text-pink-400 font-semibold">
+            <div class="mt-6 flex justify-center items-center space-x-4 text-sm text-pink-400 font-semibold flex-wrap gap-2">
                 <span>🚀 Síguenos en TikTok / Shorts</span>
                 <span>•</span>
                 <span>¡Mira cómo se programan estos juegos en vivo!</span>
@@ -170,5 +201,125 @@
         <p>© 2026 PixelKids Arcade. Todos los derechos reservados. Hecho con 💖 y código.</p>
     </footer>
 
+    <!-- Lógica JavaScript Dinámica Arcade -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const gameCards = document.querySelectorAll('.game-card');
+            const searchInput = document.getElementById('game-search');
+            const gameCounter = document.getElementById('game-counter');
+            const noResults = document.getElementById('no-results');
+            const toggleCrtBtn = document.getElementById('toggle-crt-btn');
+            const toggleSoundBtn = document.getElementById('toggle-sound-btn');
+            const soundIcon = document.getElementById('sound-icon');
+            const soundText = document.getElementById('sound-text');
+            const body = document.getElementById('app-body');
+
+            let currentCategory = 'todos';
+            let soundEnabled = true;
+
+            // --- Sintetizador de Sonido Arcade Retro (Web Audio API) ---
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+            function playBeep(freq = 440, type = 'square', duration = 0.08) {
+                if (!soundEnabled) return;
+                try {
+                    if (audioCtx.state === 'suspended') {
+                        audioCtx.resume();
+                    }
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = type;
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + duration);
+                } catch (e) {
+                    // Ignorar errores de autoplay
+                }
+            }
+
+            // --- Función de Filtrado y Búsqueda Combinada ---
+            function updateGameList() {
+                const searchTerm = searchInput.value.trim().toLowerCase();
+                let visibleCount = 0;
+
+                gameCards.forEach(card => {
+                    const title = card.querySelector('.game-title').textContent.toLowerCase();
+                    const description = card.querySelector('.game-description').textContent.toLowerCase();
+                    const cardCategory = card.getAttribute('data-category').toLowerCase();
+
+                    const matchesCategory = currentCategory === 'todos' || cardCategory.includes(currentCategory);
+                    const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+
+                    if (matchesCategory && matchesSearch) {
+                        card.style.display = 'flex';
+                        card.style.opacity = '1';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                        card.style.opacity = '0';
+                    }
+                });
+
+                gameCounter.textContent = visibleCount;
+                if (visibleCount === 0) {
+                    noResults.classList.remove('hidden');
+                } else {
+                    noResults.classList.add('hidden');
+                }
+            }
+
+            // --- Event Listeners para Botones de Filtro ---
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    playBeep(587, 'square', 0.1); // Sonido retro
+                    currentCategory = btn.getAttribute('data-category');
+
+                    filterButtons.forEach(b => {
+                        b.className = "filter-btn px-4 py-2 bg-gray-800 text-gray-300 font-semibold rounded-lg border border-gray-700 hover:bg-gray-700 transition";
+                    });
+                    btn.className = "filter-btn px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 transition";
+
+                    updateGameList();
+                });
+            });
+
+            // --- Event Listener para Buscador ---
+            searchInput.addEventListener('input', () => {
+                updateGameList();
+            });
+
+            // --- Toggle Modo Retro CRT ---
+            toggleCrtBtn.addEventListener('click', () => {
+                playBeep(300, 'sawtooth', 0.12);
+                body.classList.toggle('crt-overlay');
+                toggleCrtBtn.classList.toggle('border-pink-500');
+            });
+
+            // --- Toggle Sonido ---
+            toggleSoundBtn.addEventListener('click', () => {
+                soundEnabled = !soundEnabled;
+                if (soundEnabled) {
+                    soundIcon.textContent = '🔊';
+                    soundText.textContent = 'Sonido: ON';
+                    playBeep(880, 'sine', 0.1);
+                } else {
+                    soundIcon.textContent = 'MUTE';
+                    soundText.textContent = 'Sonido: OFF';
+                }
+            });
+
+            // --- Efecto Sonoro Hover en Botones Principales ---
+            document.querySelectorAll('a, button').forEach(elem => {
+                elem.addEventListener('mouseenter', () => {
+                    playBeep(220, 'sine', 0.03);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
