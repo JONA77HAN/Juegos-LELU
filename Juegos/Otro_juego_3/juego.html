@@ -385,5 +385,59 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     };
     run().catch(handleError);
   </script>
+  <!-- BOTONES TÁCTILES CÓMODOS (W a la izquierda, A-S-D a la derecha) -->
+<div style="position: fixed; bottom: 30px; left: 20px; z-index: 9999;">
+    <!-- Panel Izquierdo: W (Avanzar) -->
+    <button ontouchstart="sendKey('w')" onmousedown="sendKey('w')" style="background: #8b5cf6; color: white; font-weight: bold; width: 70px; height: 70px; border-radius: 50%; border: none; font-size: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; cursor: pointer;">⬆️ W</button>
+</div>
+
+<div style="position: fixed; bottom: 30px; right: 20px; z-index: 9999; display: flex; gap: 10px; align-items: center;">
+    <!-- Panel Derecho: A, S, D y Dash -->
+    <button ontouchstart="sendKey('a')" onmousedown="sendKey('a')" style="background: #3b82f6; color: white; font-weight: bold; width: 60px; height: 60px; border-radius: 50%; border: none; font-size: 18px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); cursor: pointer;">⬅️ A</button>
+    <button ontouchstart="sendKey('s')" onmousedown="sendKey('s')" style="background: #3b82f6; color: white; font-weight: bold; width: 60px; height: 60px; border-radius: 50%; border: none; font-size: 18px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); cursor: pointer;">⬇️ S</button>
+    <button ontouchstart="sendKey('d')" onmousedown="sendKey('d')" style="background: #3b82f6; color: white; font-weight: bold; width: 60px; height: 60px; border-radius: 50%; border: none; font-size: 18px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); cursor: pointer;">D ➡️</button>
+</div>
+
+<!-- Botón de Dash (Espacio) centrado arriba de los controles o abajo -->
+<div style="position: fixed; bottom: 110px; right: 30px; z-index: 9999;">
+    <button ontouchstart="sendKey(' ')" onmousedown="sendKey(' ')" style="background: #ec4899; color: white; font-weight: bold; padding: 10px 20px; border-radius: 12px; border: none; font-size: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); cursor: pointer;">⚡ DASH</button>
+</div>
+
+<script>
+    function sendKey(keyName) {
+        const keyCodeMap = { 'w': 87, 'a': 65, 's': 83, 'd': 68, ' ': 32 };
+        const codeMap = { 'w': 'KeyW', 'a': 'KeyA', 's': 'KeyS', 'd': 'KeyD', ' ': 'Space' };
+        
+        const targetKey = keyName.toLowerCase();
+        const codeStr = codeMap[targetKey] || '';
+        const keyCodeNum = keyCodeMap[targetKey] || 0;
+
+        const downEvent = new KeyboardEvent('keydown', {
+            key: targetKey === ' ' ? ' ' : targetKey,
+            code: codeStr,
+            keyCode: keyCodeNum,
+            which: keyCodeNum,
+            bubbles: true,
+            cancelable: true
+        });
+        
+        const upEvent = new KeyboardEvent('keyup', {
+            key: targetKey === ' ' ? ' ' : targetKey,
+            code: codeStr,
+            keyCode: keyCodeNum,
+            which: keyCodeNum,
+            bubbles: true,
+            cancelable: true
+        });
+
+        window.dispatchEvent(downEvent);
+        document.dispatchEvent(downEvent);
+
+        setTimeout(() => {
+            window.dispatchEvent(upEvent);
+            document.dispatchEvent(upEvent);
+        }, 50);
+    }
+</script>
 </body>
 </html>
