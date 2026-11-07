@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Creador de Novelas Gráficas por Bloques</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -10,17 +10,21 @@
 
     <header>
         <h1>Creador de Novelas Gráficas</h1>
-        <p><strong>Arrastra el fondo</strong> para moverte | <strong>Clic derecho</strong> en un bloque para conectar.</p>
+        <p class="desktop-help"><strong>Arrastra el fondo</strong> para moverte | <strong>Clic derecho</strong> en un bloque para conectar.</p>
+        <p class="mobile-help"><strong>Toca y arrastra</strong> para moverte | <strong>Mantén presionado o toca conectar</strong> en un bloque.</p>
         
         <div class="header-actions">
             <button id="btn-save" class="btn-secondary-action">💾 Guardar</button>
             <label for="file-input-load" class="btn-secondary-action file-label">📂 Cargar</label>
             <input type="file" id="file-input-load" accept=".json" style="display: none;">
-            <button id="btn-start" class="btn-primary">▶ Iniciar Novela Gráfica</button>
+            <button id="btn-start" class="btn-primary">▶ Iniciar Novela</button>
         </div>
     </header>
 
     <div id="main-layout">
+        <!-- Botón para alternar la barra lateral en celulares -->
+        <button id="btn-toggle-sidebar" class="btn-toggle-sidebar">👥 Personajes</button>
+
         <aside id="sidebar">
             <h3>Personajes</h3>
             <div class="sidebar-section">
@@ -38,6 +42,9 @@
                 <div class="block" id="block-1" style="top: 200px; left: 200px;" data-id="1" data-type="normal">
                     <div class="block-header">
                         <span>Bloque 1 (Inicio)</span>
+                        <div class="block-actions">
+                            <button class="btn-connect-touch" title="Conectar bloque">🔗</button>
+                        </div>
                     </div>
                     <div class="block-body">
                         <label>Tipo de bloque:</label>
