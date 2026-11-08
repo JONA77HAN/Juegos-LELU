@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego de Batalla 1v1 - LELUPIXEL</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- PANTALLA MENU PRINCIPAL -->
+  <div id="main-menu" class="screen active">
+    <h1>BATALLA 1v1</h1>
+    <div class="menu-buttons">
+      <button id="btn-local" class="btn">Modo Local (2 Jugadores)</button>
+      <button id="btn-ai" class="btn disabled">Modo IA (Próximamente)</button>
+    </div>
+  </div>
+
+  <!-- PANTALLA SELECCION DE ITEMS Y COLORES -->
+  <div id="select-screen" class="screen">
+    <h2>Configuración de Batalla</h2>
+    
+    <div class="selection-container">
+      <!-- JUGADOR 1 -->
+      <div class="player-box">
+        <h3>Jugador 1 (WASD + Q/E)</h3>
+        <div class="color-picker">
+          <label for="color-p1">Color:</label>
+          <input type="color" id="color-p1" value="#00ffff">
+        </div>
+        <p class="select-info">Elige 3 Ítems (<span id="count-p1">0</span>/3):</p>
+        <div id="items-p1" class="items-grid"></div>
+      </div>
+
+      <!-- JUGADOR 2 -->
+      <div class="player-box">
+        <h3>Jugador 2 (Flechas + K/L)</h3>
+        <div class="color-picker">
+          <label for="color-p2">Color:</label>
+          <input type="color" id="color-p2" value="#ff0055">
+        </div>
+        <p class="select-info">Elige 3 Ítems (<span id="count-p2">0</span>/3):</p>
+        <div id="items-p2" class="items-grid"></div>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button id="btn-back" class="btn secondary">Volver</button>
+      <button id="btn-start" class="btn">¡Comenzar Batalla!</button>
+    </div>
+  </div>
+
+  <!-- PANTALLA DE JUEGO -->
+  <div id="game-screen" class="screen">
+    <div id="hud">
+      <div class="hud-player">
+        <span class="player-name">P1</span>
+        <div class="hp-bar-outer">
+          <div id="hp-p1" class="hp-bar-inner"></div>
+        </div>
+        <div id="badges-p1" class="badges-container"></div>
+      </div>
+
+      <div class="hud-player right">
+        <div id="badges-p2" class="badges-container"></div>
+        <div class="hp-bar-outer">
+          <div id="hp-p2" class="hp-bar-inner"></div>
+        </div>
+        <span class="player-name">P2</span>
+      </div>
+    </div>
+
+    <canvas id="gameCanvas" width="900" height="500"></canvas>
+  </div>
+
+  <!-- OVERLAY GAME OVER -->
+  <div id="game-over-overlay" class="overlay">
+    <div class="overlay-content">
+      <h2 id="winner-text">¡GANA JUGADOR!</h2>
+      <div class="overlay-buttons">
+        <button id="btn-restart" class="btn">Jugar de Nuevo</button>
+        <button id="btn-menu-go" class="btn secondary">Menú Principal</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
