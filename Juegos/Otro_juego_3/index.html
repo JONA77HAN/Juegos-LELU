@@ -3,86 +3,461 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Juego de Batalla 1v1 - LELUPIXEL</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Bolas Peleadoras - 2P & IA Editor</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      user-select: none;
+    }
+
+    body {
+      background-color: #0b0c10;
+      color: #c5c6c7;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .screen {
+      display: none !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    .screen.active {
+      display: flex !important;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .btn {
+      background: #1f2833;
+      color: #66fcf1;
+      border: 2px solid #45a29e;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin: 6px;
+    }
+
+    .btn:hover {
+      background: #45a29e;
+      color: #0b0c10;
+      box-shadow: 0 0 15px #66fcf1;
+    }
+
+    .btn.primary { background: #45a29e; color: #0b0c10; }
+    .btn.primary:hover { background: #66fcf1; }
+    .btn.glow { animation: pulse 1.5s infinite; }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 5px #66fcf1; }
+      50% { box-shadow: 0 0 20px #66fcf1; }
+      100% { box-shadow: 0 0 5px #66fcf1; }
+    }
+
+    .game-title {
+      font-size: 3.5rem;
+      color: #66fcf1;
+      text-shadow: 0 0 20px #45a29e;
+      margin-bottom: 30px;
+    }
+
+    .players-setup {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .player-card {
+      background: #1f2833;
+      border: 2px solid #45a29e;
+      border-radius: 12px;
+      padding: 15px;
+      width: 380px;
+    }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    .item-btn {
+      background: #0b0c10;
+      border: 1px solid #45a29e;
+      color: #fff;
+      border-radius: 6px;
+      padding: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .item-btn.selected {
+      background: #45a29e;
+      color: #0b0c10;
+      font-weight: bold;
+    }
+
+    .ai-select-box {
+      margin: 10px 0;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .ai-select-box select {
+      background: #0b0c10;
+      color: #66fcf1;
+      border: 1px solid #45a29e;
+      padding: 5px;
+      border-radius: 4px;
+      width: 100%;
+    }
+
+    #hud {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 900px;
+      margin-bottom: 10px;
+    }
+
+    .player-hud {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 400px;
+    }
+
+    .bar-outer {
+      flex-grow: 1;
+      height: 22px;
+      background: #1f2833;
+      border: 2px solid #45a29e;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .bar-inner.hp {
+      height: 100%;
+      width: 100%;
+      transition: width 0.1s linear;
+    }
+
+    .vs-text {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #66fcf1;
+    }
+
+    canvas {
+      background: #0b0c10;
+      border: 3px solid #45a29e;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(102, 252, 241, 0.2);
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(11, 12, 16, 0.9);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .overlay.active { display: flex !important; }
+
+    .ai-cards-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      max-width: 800px;
+      max-height: 400px;
+      overflow-y: auto;
+      margin: 20px 0;
+    }
+
+    .ai-card-item {
+      background: #1f2833;
+      border: 2px solid #45a29e;
+      border-radius: 8px;
+      padding: 15px;
+      width: 230px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .ai-card-item h4 {
+      color: #66fcf1;
+      margin-bottom: 10px;
+    }
+
+    #ai-builder-screen {
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .editor-header {
+      width: 100%;
+      height: 60px;
+      background: #1f2833;
+      border-bottom: 2px solid #45a29e;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    #ai-name-input {
+      background: #0b0c10;
+      border: 1px solid #45a29e;
+      color: #66fcf1;
+      padding: 8px 12px;
+      font-size: 1.1rem;
+      border-radius: 6px;
+    }
+
+    .editor-workspace {
+      display: flex;
+      width: 100%;
+      height: calc(100vh - 60px);
+    }
+
+    .nodes-canvas {
+      flex-grow: 1;
+      background: #0b0c10;
+      background-image: radial-gradient(#1f2833 1px, transparent 1px);
+      background-size: 20px 20px;
+      position: relative;
+      overflow: auto;
+    }
+
+    /* ESTADO AMARILLO CUANDO SE CONECTA CON CLIC DERECHO */
+    .nodes-canvas.connecting-mode {
+      border: 4px solid #ecc94b;
+      box-shadow: inset 0 0 20px rgba(236, 201, 75, 0.4);
+    }
+
+    #connections-svg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 2000px; height: 2000px;
+      pointer-events: none;
+    }
+
+    .palette-sidebar {
+      width: 260px;
+      background: #1f2833;
+      border-left: 2px solid #45a29e;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn-palette {
+      width: 100%;
+      text-align: left;
+      background: #0b0c10;
+    }
+
+    .node-block {
+      position: absolute;
+      background: #555;
+      color: #fff;
+      border: 2px solid #888;
+      border-radius: 8px;
+      padding: 10px 14px;
+      min-width: 220px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      cursor: move;
+    }
+
+    .node-block.event-node { background: #4a5568; border-color: #718096; }
+    .node-block.action-node { background: #2d3748; border-color: #4a5568; }
+    .node-block.extra-node { background: #319795; border-color: #4fd1c5; }
+    .node-block.indep-node { background: #d69e2e; border-color: #ecc94b; color: #000; }
+
+    .node-block h5 {
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .node-block select, .node-block input {
+      width: 100%;
+      background: #1a202c;
+      color: #fff;
+      border: 1px solid #4a5568;
+      padding: 4px;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+
+    .delete-node-btn {
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      padding: 0 5px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- PANTALLA MENU PRINCIPAL -->
+  <!-- MENÚ PRINCIPAL -->
   <div id="main-menu" class="screen active">
-    <h1>BATALLA 1v1</h1>
+    <h1 class="game-title">BOLAS PELEADORAS</h1>
     <div class="menu-buttons">
-      <button id="btn-local" class="btn">Modo Local (2 Jugadores)</button>
-      <button id="btn-ai" class="btn disabled">Modo IA (Próximamente)</button>
+      <button id="btn-local" class="btn primary">2 JUGADORES (LOCAL)</button>
+      <button id="btn-ai-menu" class="btn secondary">MODO IA</button>
     </div>
   </div>
 
-  <!-- PANTALLA SELECCION DE ITEMS Y COLORES -->
-  <div id="select-screen" class="screen">
-    <h2>Configuración de Batalla</h2>
-    
-    <div class="selection-container">
-      <!-- JUGADOR 1 -->
-      <div class="player-box">
-        <h3>Jugador 1 (WASD + Q/E)</h3>
-        <div class="color-picker">
-          <label for="color-p1">Color:</label>
-          <input type="color" id="color-p1" value="#00ffff">
-        </div>
-        <p class="select-info">Elige 3 Ítems (<span id="count-p1">0</span>/3):</p>
-        <div id="items-p1" class="items-grid"></div>
-      </div>
+  <!-- SUBMENÚ MODO IA -->
+  <div id="ai-submenu-screen" class="screen">
+    <h2>MODO INTELIGENCIA ARTIFICIAL</h2>
+    <div class="menu-buttons">
+      <button id="btn-ai-play" class="btn primary">JUGAR CONTRA IA</button>
+      <button id="btn-ai-editor" class="btn secondary">EDITOR DE IA</button>
+      <button id="btn-back-main" class="btn text">VOLVER AL MENÚ PRINCIPAL</button>
+    </div>
+  </div>
 
-      <!-- JUGADOR 2 -->
-      <div class="player-box">
-        <h3>Jugador 2 (Flechas + K/L)</h3>
-        <div class="color-picker">
-          <label for="color-p2">Color:</label>
-          <input type="color" id="color-p2" value="#ff0055">
-        </div>
-        <p class="select-info">Elige 3 Ítems (<span id="count-p2">0</span>/3):</p>
-        <div id="items-p2" class="items-grid"></div>
+  <!-- EDITOR DE IA (LISTADO) -->
+  <div id="ai-list-screen" class="screen">
+    <h2>MIS ALGORITMOS DE IA</h2>
+    <div id="ai-cards-container" class="ai-cards-list"></div>
+    <div class="actions">
+      <button id="btn-create-new-ai" class="btn primary glow">+ CREAR NUEVA IA</button>
+      <button id="btn-back-ai-sub" class="btn secondary">VOLVER</button>
+    </div>
+  </div>
+
+  <!-- CANVAS EDITOR DE NODOS / BLOQUES DE IA -->
+  <div id="ai-builder-screen" class="screen">
+    <div class="editor-header">
+      <input type="text" id="ai-name-input" placeholder="Nombre de la IA..." value="Mi Bot Custom">
+      <div class="editor-header-actions">
+        <button id="btn-save-ai" class="btn primary">GUARDAR IA</button>
+        <button id="btn-cancel-ai" class="btn secondary">CANCELAR</button>
       </div>
     </div>
+    
+    <div class="editor-workspace">
+      <!-- ÁREA INTERACTIVA DE BLOQUES -->
+      <div id="nodes-canvas" class="nodes-canvas">
+        <svg id="connections-svg"></svg>
+        <div id="nodes-container"></div>
+      </div>
 
-    <div class="action-buttons">
-      <button id="btn-back" class="btn secondary">Volver</button>
-      <button id="btn-start" class="btn">¡Comenzar Batalla!</button>
+      <!-- PANEL LATERAL "GENERAR" -->
+      <div class="palette-sidebar">
+        <h3>GENERAR</h3>
+        <button class="btn btn-palette" onclick="editor.addNode('event')">+ Evento (Si...)</button>
+        <button class="btn btn-palette" onclick="editor.addNode('action')">+ Suceso (Entonces...)</button>
+        <button class="btn btn-palette" onclick="editor.addNode('extra-event')">+ Evento Extra (Y...)</button>
+        <button class="btn btn-palette" onclick="editor.addNode('indep')">+ Independencia</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANTALLA DE SELECCIÓN DE COMBATE -->
+  <div id="select-screen" class="screen">
+    <h2>PREPARACIÓN DE COMBATE</h2>
+    <div class="players-setup">
+      
+      <!-- JUGADOR 1 -->
+      <div class="player-card" id="card-p1">
+        <h3>JUGADOR 1 (WASD | E: Melee | Q: Disparo)</h3>
+        <div class="color-picker-box">
+          <label for="color-p1">Color de Bola:</label>
+          <input type="color" id="color-p1" value="#ff3366">
+        </div>
+        <p class="item-count">Ítems elegidos: <span id="count-p1">0</span>/3</p>
+        <div class="items-grid" id="items-p1"></div>
+      </div>
+
+      <!-- JUGADOR 2 / IA -->
+      <div class="player-card" id="card-p2">
+        <h3 id="p2-card-title">JUGADOR 2 (FLECHAS | K: Melee | L: Disparo)</h3>
+        
+        <!-- SELECTOR DE IA SI ES MODO IA -->
+        <div id="ai-select-box" class="ai-select-box hidden">
+          <label for="ai-profile-select">Perfil de IA:</label>
+          <select id="ai-profile-select"></select>
+        </div>
+
+        <div class="color-picker-box">
+          <label for="color-p2">Color de Bola:</label>
+          <input type="color" id="color-p2" value="#33ccff">
+        </div>
+        <p class="item-count">Ítems elegidos: <span id="count-p2">0</span>/3</p>
+        <div class="items-grid" id="items-p2"></div>
+      </div>
+
+    </div>
+
+    <div class="actions">
+      <button id="btn-start" class="btn primary glow">¡PELEAR!</button>
+      <button id="btn-back" class="btn secondary">VOLVER</button>
     </div>
   </div>
 
   <!-- PANTALLA DE JUEGO -->
   <div id="game-screen" class="screen">
     <div id="hud">
-      <div class="hud-player">
-        <span class="player-name">P1</span>
-        <div class="hp-bar-outer">
-          <div id="hp-p1" class="hp-bar-inner"></div>
-        </div>
-        <div id="badges-p1" class="badges-container"></div>
+      <!-- JUGADOR 1 -->
+      <div class="player-hud" id="hud-p1">
+        <div class="player-name">P1</div>
+        <div class="bar-outer"><div class="bar-inner hp" id="hp-p1"></div></div>
+        <div class="item-badges" id="badges-p1"></div>
       </div>
+      
+      <div class="vs-text">VS</div>
 
-      <div class="hud-player right">
-        <div id="badges-p2" class="badges-container"></div>
-        <div class="hp-bar-outer">
-          <div id="hp-p2" class="hp-bar-inner"></div>
-        </div>
-        <span class="player-name">P2</span>
+      <!-- JUGADOR 2 / BOT -->
+      <div class="player-hud" id="hud-p2">
+        <div class="player-name" id="hud-p2-name">P2</div>
+        <div class="bar-outer"><div class="bar-inner hp" id="hp-p2"></div></div>
+        <div class="item-badges" id="badges-p2"></div>
       </div>
     </div>
 
-    <canvas id="gameCanvas" width="900" height="500"></canvas>
+    <canvas id="gameCanvas" width="900" height="550"></canvas>
   </div>
 
-  <!-- OVERLAY GAME OVER -->
+  <!-- OVERLAY DE GAME OVER -->
   <div id="game-over-overlay" class="overlay">
-    <div class="overlay-content">
-      <h2 id="winner-text">¡GANA JUGADOR!</h2>
-      <div class="overlay-buttons">
-        <button id="btn-restart" class="btn">Jugar de Nuevo</button>
-        <button id="btn-menu-go" class="btn secondary">Menú Principal</button>
-      </div>
-    </div>
+    <h2 id="winner-text">¡GANA JUGADOR 1!</h2>
+    <button id="btn-restart" class="btn primary">JUGAR DE NUEVO</button>
+    <button id="btn-menu-go" class="btn secondary">MENÚ PRINCIPAL</button>
   </div>
 
   <script src="script.js"></script>
